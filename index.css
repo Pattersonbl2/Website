@@ -1,0 +1,13 @@
+header {
+    height:180vh;
+    min-height:400px;
+    background-size:cover;
+    background-image:url("file:///Users/brandonpatterson/Desktop/personalwebsite/images/pexels-burst-374857.jpg");
+}
+
+.hidden-spacer {
+    height: 30px
+}
+a {
+  color: #FFFFFF;
+}
