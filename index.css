@@ -1,13 +1,24 @@
 header {
-    height:180vh;
-    min-height:400px;
+    height:20vh;
+    min-height:100px;
     background-size:cover;
-    background-image:url("file:///Users/brandonpatterson/Desktop/personalwebsite/images/pexels-burst-374857.jpg");
+    background-color: white;
+  }
+#banner {
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  color: black;
+  padding: 16em 0em 14em;
+  text-align: center;
+  //background-image:url("file:///Users/brandonpatterson/Desktop/personalwebsite/images/pexels-burst-374857.jpg");
+}
+body {
+    background-color: #ddd;
 }
 
-.hidden-spacer {
-    height: 30px
-}
-a {
-  color: #FFFFFF;
+.carousel-item.active,
+.carousel-item-next,
+.carousel-item-prev{
+    display:block;
 }
