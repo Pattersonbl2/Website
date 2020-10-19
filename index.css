@@ -11,7 +11,7 @@ header {
   color: black;
   padding: 16em 0em 14em;
   text-align: center;
-  //background-image:url("file:///Users/brandonpatterson/Desktop/personalwebsite/images/pexels-burst-374857.jpg");
+
 }
 body {
     background-color: #ddd;
@@ -31,4 +31,16 @@ body {
    left: 50%;
    margin: -150px 0 0 -150px;
    text-align: center;
+}
+.carousel-control-next,
+.carousel-control-prev {
+    filter: invert(100%);
+}
+.carousel-indicators li {
+  background-color: #999 !important;
+  background-color: rgba(70,70,70,.25) !important;
+}
+
+.carousel-indicators .active {
+  background-color: #444 !important;
 }

@@ -4,7 +4,7 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="utf-8">
-    <title>Landing Page </title>
+    <title>This Page is still under development </title>
     <link rel="stylesheet" href="index.css">
 
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -56,9 +56,17 @@
 var dt = new Date();
 document.getElementById("datetime").innerHTML = dt.toLocaleString();
 </script>
+
 <!-- carrousl-->
 <div class="container">
+  <br>
     <div id="carouselContent" class="carousel slide" data-ride="carousel">
+      <!-- Indicators -->
+      <ol class="carousel-indicators">
+      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+      <li data-target="#myCarousel" data-slide-to="1"></li>
+    </ol>
+    <!--- Wrapper -->
         <div class="carousel-inner" role="listbox">
             <div class="carousel-item active text-center p-4">
               <h1> Current Projects </h1>
