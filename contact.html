@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Contact Form Demo</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" integrity="sha256-h20CPZ0QyXlBuAw7A+KluUYx/3pK+c7lYEpqLTlxjYQ=" crossorigin="anonymous" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.0/css/bulma.min.css" integrity="sha512-ADrqa2PY1TZtb/MoLZIZu/Z/LlPaWQeDMBV73EMwjGam43/JJ5fqW38Rq8LJOVGCDfrJeOMS3Q/wRUVzW5DkjQ==" crossorigin="anonymous" />
+  <style>
+    #contact-form .message {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="container">
+      <article class="static">
+        <h1 class="title">Contact Form</h1>
+        <form id="contact-form" action="https://8ds3lg9s8f.execute-api.us-east-1.amazonaws.com/dev/" method="POST">
+          <div class="columns">
+            <div class="column">
+              <div class="field">
+                <label class="label">Your name</label>
+                <div class="control has-icons-left">
+                  <input id="contact-name" class="input" type="text" placeholder="">
+                  <span class="icon is-small is-left">
+                    <i class="fas fa-user"></i>
+                  </span>
+                </div>
+                <p class="help is-danger"></p>
+              </div>
+            </div>
+            <div class="column">
+              <div class="field">
+                <label class="label">Your email</label>
+                <div class="control has-icons-left">
+                  <input id="contact-email" class="input" type="email" placeholder="">
+                  <span class="icon is-small is-left">
+                    <i class="fas fa-envelope"></i>
+                  </span>
+                </div>
+                <p class="help is-danger"></p>
+              </div>
+            </div>
+          </div>
+          <div class="field">
+            <label class="label">Subject</label>
+            <div class="control">
+                <input id="contact-subject" class="input" type="text" placeholder="">
+            </div>
+            <p class="help is-danger"></p>
+          </div>
+          <div class="field">
+            <label class="label">Message</label>
+            <div class="control">
+              <textarea id="contact-message" class="textarea" placeholder=""></textarea>
+            </div>
+            <p class="help is-danger"></p>
+          </div>
+          <div class="field captcha">
+            <div class="g-recaptcha" data-sitekey="6Le8JxAaAAAAACDRozuhv3qiCS_T0zZWA02SXd5d"></div>
+            <p class="help is-danger" id="captcha-error"></p>
+          </div>
+          <div class="buttons">
+            <button type="submit" class="button is-success">Send Message</button>
+          </div>
+          <div class="message is-danger">
+            <div class="message-body">
+              <span class="icon">
+                  <i class="far fa-frown"></i>
+              </span>
+              Sorry, it seems that an error occurred. Please try again later...
+            </div>
+          </div>
+          <div class="message is-success">
+            <div class="message-body">
+              <span class="icon">
+                  <i class="far fa-smile"></i>
+              </span>
+              Success! Check your inbox...
+            </div>
+          </div>
+        </form>
+      <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    </article>
+    </div>
+  </main>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/cash/7.0.1/cash.min.js" integrity="sha256-cP4vwprtrs4i6th5S3ysmrRUfhdEyHA5MlBxaOwQ+/s=" crossorigin="anonymous"></script>
+  <script>
+$('#contact-form').on('submit', function( e ) {
+
+  // reset form state
+  $('#contact-form input').removeClass('is-danger');
+  $('#contact-form textarea').removeClass('is-danger');
+  $('#contact-form .help').hide();
+  $('#contact-form .message').hide();
+
+  // disable submit button and show wait status indicators
+  $('#contact-form button[type=submit]').prop('disabled', true).addClass('is-loading');
+  $('body').css('cursor', 'wait');
+
+  fetch(
+      $(e.target).attr('action'),
+      {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+              name: $('#contact-name').val(),
+              email: $('#contact-email').val(),
+              subject: $('#contact-subject').val(),
+              message: $('#contact-message').val(),
+              captcha: $('#g-recaptcha-response').val(),
+          }),
+      }
+  )
+  .then(response => {
+
+      // if we get a successful response we'll just assume the message was sent
+      if( response.ok ) {
+          $('#contact-form .buttons').hide();
+          $('#contact-form .message.is-success').show();
+      }
+      // validation error
+      else if( response.status == 400 ) {
+
+          // wait for the response body and then show the error messages
+          response.json().then(data => {
+              console.log(data);
+              Object.entries(data.errors).forEach(([field, message]) => {
+                  if( field == 'captcha' ) {
+                      $('#captcha-error').text(message).show();
+                      return;
+                  }
+                  $('#contact-' + field).addClass('is-danger');
+                  $('#contact-' + field).parent().siblings('.help').text(message).show();
+              });
+          });
+
+      }
+      // server error
+      else if( response.status == 500 ) {
+          throw 'Server Error';
+      }
+      else {
+          throw 'Unexpected Error';
+      }
+
+  })
+  .catch(error => {
+      console.error('Error:', error);
+      $('#contact-form .message.is-danger').show();
+  })
+  .finally(() => {
+      // clear wait status indicators
+      $('#contact-form button').prop('disabled', false).removeClass('is-loading').trigger('blur');
+      $('body').css({'cursor': 'auto'})
+  })
+
+  // don't execute the normal form submission handler
+  e.preventDefault();
+  e.stopPropagation();
+  return false;
+
+});
+  </script>
+</body>
+</html>

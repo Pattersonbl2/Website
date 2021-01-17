@@ -19,6 +19,8 @@
 
      <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    ript>
   </head>
   <body>
     <!---nav bar seciton -->
@@ -38,62 +40,28 @@
        <li class="nav-item">
        <a class="nav-link" href="https://twitter.com/bpdev2">Twitter</a>
        </li>
+       <li class="nav-item">
+       <a class="nav-link" href="contact.html">Contact</a>
+       </li>
      </ul>
     </div>
      </div>
    </nav>
 <!---Intro -->
 <section id="banner">
-  <h2>Welcome</h2>
+  <h2 class="ml3"> Welcome </h2>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
   <p>Page is still under development ⚠️ </p>
       <a href="https://s3.amazonaws.com/ark31.info/resume09-01.docx"class="button big" > Download Resume</a>
 </section>
 <!--- Twitch Video Frame ---->
 <div id="timecenter">
 <p>Date/Time: <span id="datetime"></span></p>
-</div>
+</div >
 <script>
 var dt = new Date();
 document.getElementById("datetime").innerHTML = dt.toLocaleString();
 </script>
-
-<!-- carrousl-->
-<div class="container">
-  <br>
-    <div id="carouselContent" class="carousel slide" data-ride="carousel">
-      <!-- Indicators -->
-      <ol class="carousel-indicators">
-      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-      <li data-target="#myCarousel" data-slide-to="1"></li>
-    </ol>
-    <!--- Wrapper -->
-        <div class="carousel-inner" role="listbox">
-            <div class="carousel-item active text-center p-4">
-              <h1> Current Projects </h1>
-                 <p> In the first stage i am working on completting the front end work. I will be rolling features into this page over time as my skills get better. I am working the
-                   front end in four to five stages to make things look better. Stage one will be the roughest looking part because i am free handing the code.This will be the bones of a growing page
-                 </p>
-            </div>
-            <div class="carousel-item text-center p-4">
-                 <h1> Future projects </h1>
-                  <ul class="list-group list-group-horizontal justify-content-center">
-                   <li class="list-group-item">Adding Scroll Button </li>
-                   <li class="list-group-item">Adding more Sections</li>
-                   <li class="list-group-item">Enhancing links</li>
-                 </ul>
-
-                <p>Each feature will be apart of stage 2 </p>
-            </div>
-        </div>
-        <a class="carousel-control-prev" href="#carouselContent" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#carouselContent" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-        </a>
-    </div>
 </div>
 </body>
 </html>
